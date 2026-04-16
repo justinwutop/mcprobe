@@ -28,4 +28,4 @@ jobs:
         run: node test/run.js --ci --reporter tap
 
       - name: Run benchmark
-        run: node src/cli.js bench --transport stdio --command "node examples/mock-server.js" --rounds 3
+        run: node src/cli.js bench --transport stdio "node examples/mock-server.js" get_current_time -n 3
