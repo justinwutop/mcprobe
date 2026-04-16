@@ -1,0 +1,45 @@
+name: Test MCP Server
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: node src/cli.js test "node examples/mock-server.js" examples/basic-test.json --ci --reporter tap
+
+      - name: Run full test suite
+        run: npm test
+
+      - name: Benchmark
+        run: node src/cli.js bench "node examples/mock-server.js" echo -a '{"message":"ci"}' -n 5 --json
+
+      - name: Generate JUnit report
+        if: always()
+        run: node src/cli.js test "node examples/mock-server.js" examples/basic-test.json --ci --reporter junit > test-results.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-node-${{ matrix.node-version }}
+          path: test-results.xml

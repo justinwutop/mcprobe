@@ -1,0 +1,28 @@
+[
+  {
+    "name": "echo",
+    "type": "tool",
+    "args": { "message": "hello mcprobe!" },
+    "assert": [
+      { "type": "exists", "path": "content" },
+      { "type": "type", "path": "content", "expected": "object" }
+    ]
+  },
+  {
+    "name": "add",
+    "type": "tool",
+    "args": { "a": 3, "b": 7 },
+    "assert": [
+      { "type": "exists", "path": "content" }
+    ]
+  },
+  {
+    "name": "search",
+    "type": "tool",
+    "args": { "query": "test query", "limit": 5 },
+    "assert": [
+      { "type": "exists", "path": "content" },
+      { "type": "contains", "path": "content.0.text", "expected": "test query" }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "name": "mcprobe",
+  "version": "0.2.0",
+  "description": "A CLI tool for testing, debugging, and inspecting MCP (Model Context Protocol) servers — like Postman for MCP.",
+  "main": "src/index.js",
+  "bin": {
+    "mcprobe": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node test/run.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "cli",
+    "testing",
+    "debugging",
+    "inspector",
+    "benchmark",
+    "ci"
+  ],
+  "author": "Justin Wu",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
